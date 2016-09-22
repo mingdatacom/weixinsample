@@ -30,7 +30,7 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler{
 	
 	private Button gotoBtn, regBtn, launchBtn, checkBtn;
 	
-	// IWXAPI �ǵ�����app��΢��ͨ�ŵ�openapi�ӿ�
+	// IWXAPI 是第三方app和微信通信的openapi接口
     private IWXAPI api;
 	
     @Override
@@ -38,7 +38,7 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.entry);
         
-        // ͨ��WXAPIFactory��������ȡIWXAPI��ʵ��
+        // 通过WXAPIFactory工厂，获取IWXAPI的实例
     	api = WXAPIFactory.createWXAPI(this, Constants.APP_ID, false);
 
     	regBtn = (Button) findViewById(R.id.reg_btn);
@@ -46,7 +46,7 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler{
 			
 			@Override
 			public void onClick(View v) {
-				// ����appע�ᵽ΢��
+				// 将该app注册到微信
 			    api.registerApp(Constants.APP_ID);    	
 			}
 		});
@@ -95,7 +95,7 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler{
         api.handleIntent(intent, this);
 	}
 
-	// ΢�ŷ������󵽵�����Ӧ��ʱ����ص����÷���
+	// 微信发送请求到第三方应用时，会回调到该方法
 	@Override
 	public void onReq(BaseReq req) {
 		switch (req.getType()) {
@@ -110,7 +110,7 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler{
 		}
 	}
 
-	// ������Ӧ�÷��͵�΢�ŵ�����������Ӧ�������ص����÷���
+	// 第三方应用发送到微信的请求处理后的响应结果，会回调到该方法
 	@Override
 	public void onResp(BaseResp resp) {
 		int result = 0;
@@ -144,7 +144,7 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler{
 		WXMediaMessage wxMsg = showReq.message;		
 		WXAppExtendObject obj = (WXAppExtendObject) wxMsg.mediaObject;
 		
-		StringBuffer msg = new StringBuffer(); // ��֯һ������ʾ����Ϣ����
+		StringBuffer msg = new StringBuffer(); // 组织一个待显示的消息内容
 		msg.append("description: ");
 		msg.append(wxMsg.description);
 		msg.append("\n");

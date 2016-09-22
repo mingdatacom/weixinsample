@@ -67,21 +67,21 @@ public class GetFromWXActivity extends Activity {
 							return;
 						}
 						
-						// ��ʼ��һ��WXTextObject����
+						// 初始化一个WXTextObject对象
 						WXTextObject textObj = new WXTextObject();
 						textObj.text = text;
 
-						// ��WXTextObject�����ʼ��һ��WXMediaMessage����
+						// 用WXTextObject对象初始化一个WXMediaMessage对象
 						WXMediaMessage msg = new WXMediaMessage(textObj);
 						msg.description = text;
 						
-						// ����һ��Resp
+						// 构造一个Resp
 						GetMessageFromWX.Resp resp = new GetMessageFromWX.Resp();
-						// ��req��transaction���õ�resp�����У�����bundleΪ΢�Ŵ��ݹ�����intent���������ݣ�ͨ��getExtras������ȡ
+						// 将req的transaction设置到resp对象中，其中bundle为微信传递过来的intent所带的内容，通过getExtras方法获取
 						resp.transaction = getTransaction();
 						resp.message = msg;
 						
-						// ����api�ӿ���Ӧ���ݵ�΢��
+						// 调用api接口响应数据到微信
 						api.sendResp(resp);
 						finish();
 					}
@@ -100,7 +100,7 @@ public class GetFromWXActivity extends Activity {
 				WXMediaMessage msg = new WXMediaMessage();
 				msg.mediaObject = imgObj;
 
-				// ������Ϣ������ͼ
+				// 设置消息的缩略图
 				Bitmap thumbBmp = Bitmap.createScaledBitmap(bmp, THUMB_SIZE, THUMB_SIZE, true);
 				bmp.recycle();
 				msg.thumbData = Util.bmpToByteArray(thumbBmp, true);

@@ -109,7 +109,7 @@ public class Util {
 		byte[] b = null;
 		try {
 			RandomAccessFile in = new RandomAccessFile(fileName, "r");
-			b = new byte[len]; // ���������ļ���С������
+			b = new byte[len]; // 创建合适文件大小的数组
 			in.seek(offset);
 			in.readFully(b);
 			in.close();

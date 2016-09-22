@@ -80,24 +80,24 @@ public class SendToWXActivity extends Activity {
 							return;
 						}
 						
-						// ��ʼ��һ��WXTextObject����
+						// 初始化一个WXTextObject对象
 						WXTextObject textObj = new WXTextObject();
 						textObj.text = text;
 
-						// ��WXTextObject�����ʼ��һ��WXMediaMessage����
+						// 用WXTextObject对象初始化一个WXMediaMessage对象
 						WXMediaMessage msg = new WXMediaMessage();
 						msg.mediaObject = textObj;
-						// �����ı����͵���Ϣʱ��title�ֶβ�������
+						// 发送文本类型的消息时，title字段不起作用
 						// msg.title = "Will be ignored";
 						msg.description = text;
 
-						// ����һ��Req
+						// 构造一个Req
 						SendMessageToWX.Req req = new SendMessageToWX.Req();
-						req.transaction = buildTransaction("text"); // transaction�ֶ�����Ψһ��ʶһ������
+						req.transaction = buildTransaction("text"); // transaction字段用于唯一标识一个请求
 						req.message = msg;
 						req.scene = isTimelineCb.isChecked() ? SendMessageToWX.Req.WXSceneTimeline : SendMessageToWX.Req.WXSceneSession;
 						
-						// ����api�ӿڷ������ݵ�΢��
+						// 调用api接口发送数据到微信
 						api.sendReq(req);
 						finish();
 					}
@@ -125,7 +125,7 @@ public class SendToWXActivity extends Activity {
 							
 							Bitmap thumbBmp = Bitmap.createScaledBitmap(bmp, THUMB_SIZE, THUMB_SIZE, true);
 							bmp.recycle();
-							msg.thumbData = Util.bmpToByteArray(thumbBmp, true);  // ��������ͼ
+							msg.thumbData = Util.bmpToByteArray(thumbBmp, true);  // 设置缩略图
 
 							SendMessageToWX.Req req = new SendMessageToWX.Req();
 							req.transaction = buildTransaction("img");
